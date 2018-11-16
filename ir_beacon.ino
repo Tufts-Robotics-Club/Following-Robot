@@ -1,0 +1,57 @@
+// Direction Pins:
+int northPin = 2;
+int southPin = 4;
+int eastPin = 3;
+int westPin = 5;
+// Direction Pin Values:
+boolean northValue;
+boolean southValue;
+boolean eastValue;
+boolean westValue;
+// Direction Sensors Variables:
+int north;
+int south;
+int east;
+int west;
+// Direction of Strongest Signal:
+int strongestSignal;
+
+void setup() {
+   pinMode(northPin, INPUT);
+   pinMode(southPin, INPUT);
+   pinMode(eastPin, INPUT);
+   pinMode(westPin, INPUT);
+   Serial.begin(9600);
+}
+
+void loop() {
+  senseDirection(northPin, southPin, eastPin, westPin);
+  strongestSignal = chooseDirection(northValue, southValue, eastValue,
+  westValue);
+  Serial.print(strongestSignal);
+}
+
+// Read Data from Chip:
+void senseDirection(int sensorPin1, int sensorPin2, int sensorPin3, int
+sensorPin4) {
+ northValue = digitalRead(sensorPin1);
+ southValue = digitalRead(sensorPin2);
+ eastValue = digitalRead(sensorPin3);
+ westValue = digitalRead(sensorPin4);
+}
+// Detect Chip Strongest Direction:
+int chooseDirection(boolean north, boolean south, boolean east, boolean
+west) {
+ if (north == 0) {
+ return 1;
+ }
+ if (south == 0) {
+ return 2;
+ }
+ if (east == 0) {
+ return 3;
+ }
+ if (west == 0) {
+ return 4;
+ }
+}
